@@ -1,28 +1,19 @@
 {inputs, ...}: {
-  g14-wsl-nixos = {
-    hostname = "g14-wsl-nixos";
+  sonata = {
+    hostname = "sonata";
     nixosModules = [
       inputs.nixos-wsl.nixosModules.wsl
-      ../hosts/wsl
+      ../hosts/sonata
       ../modules/nixos/wsl.nix
     ];
-    homeModule = ../hosts/wsl/home.nix;
+    homeModule = ../hosts/sonata/home.nix;
   };
-  vmware = {
-    hostname = "vmware";
+  concerto = {
+    hostname = "concerto";
     nixosModules = [
-      ../hosts/vmware
-      ../modules/nixos/desktop.nix
-    ];
-    homeModule = ../hosts/vmware/home.nix;
-  };
-  oracle-arm = {
-    system = "x64-arm";
-    hostname = "oracle-arm";
-    nixosModules = [
-      ../hosts/oracle
+      ../hosts/concerto
       ../modules/nixos/base
     ];
-    homeModule = ../hosts/oracle/home.nix;
+    homeModule = ../hosts/concerto/home.nix;
   };
 }

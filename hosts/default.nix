@@ -41,8 +41,7 @@
 in 
 {
   nixosConfigurations = {
-    g14-wsl-nixos = mkNixosConfiguration vars.g14-wsl-nixos;
-    oracle-arm = mkNixosConfiguration vars.oracle-arm;
-    vmware = mkNixosConfiguration vars.vmware;
+    sonata = mkNixosConfiguration vars.sonata;
+    concerto = mkNixosConfiguration vars.concerto;
   };
 }
