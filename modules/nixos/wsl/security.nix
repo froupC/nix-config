@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, lib, ...}: {
   # security with polkit
   # security.polkit.enable = true;
   # security with gnome-kering
@@ -8,7 +8,7 @@
   # gpg agent with pinentry
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "curses";
+    pinentryPackage = (lib.mkDefault pkgs.pinentry-curses);
     enableSSHSupport = false;
   };
 }

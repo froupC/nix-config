@@ -1,8 +1,7 @@
-{config, pkgs, ...}: {
+{config, pkgs, lib, ...}: {
   programs.zsh = {
     enable = true;
     autocd = true;
-    enableAutosuggestions = true;
     enableCompletion = true;
     defaultKeymap = "emacs";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
@@ -23,8 +22,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "Freed-Wu";
           repo = "fzf-tab-source";
-          rev = "ad16ebe8285aa9c63149dce9a77e5f5fb54dae6f";
-	        sha256 = "sha256-WVK6yEj6iTVBGDRvl2437Rr8aK+XpUhxvz8mAZ1Ww84=";
+          rev = "63ba0b98e506da29dcc1bcf0f48525e69c0a5c47";
+	        sha256 = "sha256-nYJVDm44BKK/dgugLdW7lPgggGxEV91slk8sth7BgvM=";
         };
       }
       {
@@ -94,16 +93,8 @@
       bindkey ";5C" forward-word
       bindkey ";5D" backward-word
 
-      zstyle ':completion:*:*:*:*:*' menu select
-
-      # fix group color
-      zstyle ':completion:*:descriptions' format '[%d]'
-
       # Complete . and .. special directories
       zstyle ':completion:*' special-dirs true
-
-      zstyle ':completion:*' list-colors ""
-      zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
       # disable named-directories autocompletion
       zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
@@ -126,15 +117,25 @@
       zstyle '*' single-ignored complete
 
       # https://thevaluable.dev/zsh-completion-guide-examples/
-      zstyle ':completion:*' completer _extensions _complete _approximate
-      zstyle ':completion:*:descriptions' format '%F{green}-- %d --%f'
       zstyle ':completion:*' group-name ""
-      zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
+      # zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
       zstyle ':completion:*' squeeze-slashes true
-      zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
       # use fzf-tab for universal completion
-      zstyle ':fzf-tab:*' fzf-flags "--preview-window=right,35%,wrap" # adjust layout for fzf-tab plugin
+      # disable sort when completing `git checkout`
+      zstyle ':completion:*:git-checkout:*' sort false
+      # set descriptions format to enable group support
+      # NOTE: don't use escape sequences here, fzf-tab will ignore them
+      zstyle ':completion:*:descriptions' format '[%d]'
+      # set list-colors to enable filename colorizing
+      zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+      zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+      # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+      zstyle ':completion:*' menu no
+      # switch group using `<` and `>`
+      zstyle ':fzf-tab:*' switch-group '<' '>'
+
+      zstyle ':fzf-tab:*' fzf-flags "--preview-window=top,40%,wrap" # adjust layout for fzf-tab plugin
       
       # give a preview of commandline arguments when completing `kill`
       zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
@@ -177,5 +178,10 @@
       # fixes duplication of commands when using tab-completion
       export LANG=C.UTF-8
     '';
+  };
+  programs.zsh.autosuggestion.enable = true;
+  home.file.".lessfilter"= {
+    source = ./lessfilter.sh;
+    executable = true;
   };
 }

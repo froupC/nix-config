@@ -43,8 +43,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # private configs
-    # private-config = { url = "git+ssh://git@github.com:froup/nix-config-private.git?shallow=1"; };
+    agenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # secret
+    mysecrets = { 
+      url = "git+ssh://git@github.com/froupC/secrets-for-nix.git?shallow=1"; 
+      flake = false;
+    };
 
     # Non-flake repos
     astronvim = {

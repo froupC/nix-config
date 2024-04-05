@@ -114,7 +114,7 @@ in
     eza = {
       enable = true;
       package = pkgs.unstable.eza;
-      enableAliases = true;
+      enableZshIntegration = true;
       git = true;
       icons = true;
     };

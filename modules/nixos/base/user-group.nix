@@ -32,7 +32,10 @@
       "docker"
       "libvirtd"
     ];
-    openssh.authorizedKeys.keys = [];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25518 AAAAC3NzaC1lZDI1NTE5AAAAIJoALbDUzGjj4w8zl7c9jVOWWDagjTkNtqrhJLpRJSz8 froup@sonata"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFog+xBaFU3tQCFOY6219+DDhOna+zITforRndZtdOcJ froup@symphony"
+    ];
   };
   users.users.root = {
     initialHashedPassword = config.users.users."${username}".initialHashedPassword;
