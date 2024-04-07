@@ -15,7 +15,7 @@
   #
   #   https://www.kernel.org/doc/Documentation/blockdev/zram.txt
   zramSwap = {
-    enable = true;
+    enable = lib.mkDefault true;
     # one of "lzo", "lz4", "zstd"
     algorithm = "zstd";
     # Priority of the zram swap devices.

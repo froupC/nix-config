@@ -1,6 +1,7 @@
 {
   username,
   hostname,
+  lib,
   pkgs,
   config,
   ...
@@ -11,7 +12,7 @@
     ./network.nix
   ];
 
-  zramSwap.enable = false;
+  zramSwap.enable = lib.mkForce false;
 
   environment.systemPackages = [
     pkgs.sing-box
