@@ -29,6 +29,7 @@
     inherit specialArgs;
     system = constants.allSystemsAttrset."${system}";
     modules = nixosModules ++ [
+      ../secrets/default.nix
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;

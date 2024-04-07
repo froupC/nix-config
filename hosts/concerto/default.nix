@@ -2,8 +2,15 @@
   username,
   hostname,
   pkgs,
+  config,
   ...
 }: {
+  imports = [
+    ./boot.nix
+    ./filesystem.nix
+    ./network.nix
+  ];
+
   environment.systemPackages = [
     pkgs.sing-box
   ];
