@@ -39,6 +39,7 @@
     gnumake
     wget
     curl
+    zellij # for session persistant
   ];
 
   system.stateVersion = "23.11";
