@@ -11,6 +11,8 @@
     ./network.nix
   ];
 
+  zramSwap.enable = false;
+
   environment.systemPackages = [
     pkgs.sing-box
   ];
@@ -20,7 +22,7 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  server.proxy.enable = true;
+  modules.secrets.server.proxy.enable = true;
 
   system.stateVersion = "23.11";
 }
