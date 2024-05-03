@@ -75,6 +75,25 @@
   #   };
   # };
 
+  # fileSystems."/" = { device = "/dev/sda3"; fsType = "ext4"; };
+  # fileSystems."/boot" = { device = "/dev/sda2"; fsType = "ext4"; };
+
+  fileSystems = {
+    "/" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = ["relatime" "mode=755" "nosuid" "nodev"];
+    };
+    "/boot" = {
+      device = "/dev/sda2";
+      fsType = "ext4";
+    };
+    "/nix" = {
+      device = "/dev/sda3";
+      fsType = "ext4";
+    };
+  };
+
   # fileSystems = {
   #   "/" = {
   #     device = "tmpfs";
@@ -99,50 +118,47 @@
   #   };
   # };
   #
-  # environment.persistence."/nix/persistent" = {
-  #   hideMounts = true;
-  #
-  #   directories = [
-  #     "/root"
-  #     "/var"
-  #   ];
-  #
-  #   files = [
-  #     "/etc/machine-id"
-  #     "/etc/ssh/ssh_host_ed25519_key.pub"
-  #     "/etc/ssh/ssh_host_ed25519_key"
-  #     "/etc/ssh/ssh_host_rsa_key.pub"
-  #     "/etc/ssh/ssh_host_rsa_key"
-  #   ];
-  #
-  #   users.${username} = {
-  #     directories = [
-  #       "src"
-  #       "containers"
-  #       # configs
-  #       ".cache"
-  #       ".config"
-  #       ".gnupg"
-  #       ".local"
-  #       ".ssh"
-  #     ];
-  #     files = [ ];
-  #   };
-  # };
-  #
-  # systemd.services.nix-daemon = {
-  #   environment = {
-  #     # make nix daemon build in this directory instead of /tmp
-  #     TMPDIR = "/var/cache/nix";
-  #   };
-  #   serviceConfig = {
-  #     # auto create /var/cache/nix
-  #     CacheDirectory = "nix";
-  #   };
-  # };
-  # # make root nix command use daemon
-  # environment.variables.NIX_REMOTE = "daemon";
+  environment.persistence."/nix/persistent" = {
+    hideMounts = true;
 
-  fileSystems."/" = { device = "/dev/sda3"; fsType = "ext4"; };
-  fileSystems."/boot" = { device = "/dev/sda2"; fsType = "ext4"; };
+    directories = [
+      "/root"
+      "/var"
+    ];
+
+    files = [
+      "/etc/machine-id"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+      "/etc/ssh/ssh_host_rsa_key"
+    ];
+
+    users.${username} = {
+      directories = [
+        "src"
+        "containers"
+        # configs
+        ".cache"
+        ".config"
+        ".gnupg"
+        ".local"
+        ".ssh"
+      ];
+      files = [ ];
+    };
+  };
+
+  systemd.services.nix-daemon = {
+    environment = {
+      # make nix daemon build in this directory instead of /tmp
+      TMPDIR = "/var/cache/nix";
+    };
+    serviceConfig = {
+      # auto create /var/cache/nix
+      CacheDirectory = "nix";
+    };
+  };
+  # make root nix command use daemon
+  environment.variables.NIX_REMOTE = "daemon";
 }
