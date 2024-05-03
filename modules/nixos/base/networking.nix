@@ -17,6 +17,5 @@
       PermitRootLogin = "prohibit-password"; # disable root login
       PasswordAuthentication = false; # disable password login
     };
-    openFirewall = true;
   };
 }

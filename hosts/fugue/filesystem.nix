@@ -75,71 +75,74 @@
   #   };
   # };
 
-  fileSystems = {
-    "/" = {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = ["relatime" "mode=755" "nosuid" "nodev"];
-    };
-    "/boot" = {
-      device = "/dev/sda1";
-      fsType = "vfat";
-      options = ["fmask=0077" "dmask=0077"];
-    };
-    "/nix" = {
-      device = "/dev/sda2";
-      fsType = "btrfs";
-      options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@nix"];
-    };
-    "/nix/persistent" = {
-      neededForBoot = true;
-      device = "/dev/sda2";
-      fsType = "btrfs";
-      options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@persistent"];
-    };
-  };
+  # fileSystems = {
+  #   "/" = {
+  #     device = "tmpfs";
+  #     fsType = "tmpfs";
+  #     options = ["relatime" "mode=755" "nosuid" "nodev"];
+  #   };
+  #   "/boot" = {
+  #     device = "/dev/sda1";
+  #     fsType = "vfat";
+  #     options = ["fmask=0077" "dmask=0077"];
+  #   };
+  #   "/nix" = {
+  #     device = "/dev/sda2";
+  #     fsType = "btrfs";
+  #     options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@nix"];
+  #   };
+  #   "/nix/persistent" = {
+  #     neededForBoot = true;
+  #     device = "/dev/sda2";
+  #     fsType = "btrfs";
+  #     options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@persistent"];
+  #   };
+  # };
+  #
+  # environment.persistence."/nix/persistent" = {
+  #   hideMounts = true;
+  #
+  #   directories = [
+  #     "/root"
+  #     "/var"
+  #   ];
+  #
+  #   files = [
+  #     "/etc/machine-id"
+  #     "/etc/ssh/ssh_host_ed25519_key.pub"
+  #     "/etc/ssh/ssh_host_ed25519_key"
+  #     "/etc/ssh/ssh_host_rsa_key.pub"
+  #     "/etc/ssh/ssh_host_rsa_key"
+  #   ];
+  #
+  #   users.${username} = {
+  #     directories = [
+  #       "src"
+  #       "containers"
+  #       # configs
+  #       ".cache"
+  #       ".config"
+  #       ".gnupg"
+  #       ".local"
+  #       ".ssh"
+  #     ];
+  #     files = [ ];
+  #   };
+  # };
+  #
+  # systemd.services.nix-daemon = {
+  #   environment = {
+  #     # make nix daemon build in this directory instead of /tmp
+  #     TMPDIR = "/var/cache/nix";
+  #   };
+  #   serviceConfig = {
+  #     # auto create /var/cache/nix
+  #     CacheDirectory = "nix";
+  #   };
+  # };
+  # # make root nix command use daemon
+  # environment.variables.NIX_REMOTE = "daemon";
 
-  environment.persistence."/nix/persistent" = {
-    hideMounts = true;
-
-    directories = [
-      "/root"
-      "/var"
-    ];
-
-    files = [
-      "/etc/machine-id"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-      "/etc/ssh/ssh_host_rsa_key"
-    ];
-
-    users.${username} = {
-      directories = [
-        "src"
-        "containers"
-        # configs
-        ".cache"
-        ".config"
-        ".gnupg"
-        ".local"
-        ".ssh"
-      ];
-      files = [ ];
-    };
-  };
-
-  systemd.services.nix-daemon = {
-    environment = {
-      # make nix daemon build in this directory instead of /tmp
-      TMPDIR = "/var/cache/nix";
-    };
-    serviceConfig = {
-      # auto create /var/cache/nix
-      CacheDirectory = "nix";
-    };
-  };
-  # make root nix command use daemon
-  environment.variables.NIX_REMOTE = "daemon";
+  fileSystems."/" = { device = "/dev/sda3"; fsType = "ext4"; };
+  fileSystems."/boot" = { device = "/dev/sda2"; fsType = "ext4"; };
 }

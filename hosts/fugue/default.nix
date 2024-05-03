@@ -12,7 +12,5 @@
     ./network.nix
   ];
 
-  zramSwap.enable = lib.mkForce false;
-
   system.stateVersion = "23.11";
 }
