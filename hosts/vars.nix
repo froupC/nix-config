@@ -16,4 +16,12 @@
     ];
     homeModule = ../hosts/concerto/home.nix;
   };
+  fugue = {
+    hostname = "fugue";
+    nixosModules = [
+      ../hosts/fugue
+      ../modules/nixos/base
+    ];
+    homeModule = ../hosts/fugue/home.nix;
+  };
 }
