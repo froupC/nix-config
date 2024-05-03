@@ -27,11 +27,10 @@
 
           ../../hosts/fugue/boot.nix
           ../../hosts/fugue/filesystem.nix
-          # ../../hosts/fugue/network.nix
+          ../../hosts/fugue/network.nix
 
           ../../modules/nixos/base/locale.nix
           ../../modules/nixos/base/networking.nix
-          # ../../modules/nixos/base/user-group.nix
         ];
       };
     };

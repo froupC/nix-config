@@ -43,6 +43,4 @@
     "virtio_rng"
     "nvme"
   ];
-
-  zramSwap.enable = true;
 }
