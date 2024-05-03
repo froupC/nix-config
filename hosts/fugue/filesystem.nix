@@ -12,68 +12,68 @@
     disko.nixosModules.disko
   ];
 
-  disko = {
-    enableConfig = false;
-
-    devices = {
-      disk.main = {
-        type = "disk";
-        device = "/dev/vda";
-        imageSize = "2G";
-        content = {
-          type = "gpt";
-          partitions = {
-            bios = {
-              size = "1M";
-              type = "21686148-6449-6E6F-744E-656564454649"; # BIOS boot partition
-              priority = 0;
-            };
-
-            boot = {
-              size = "1G";
-              type = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B";
-              priority = 1;
-              content = {
-                type = "filesystem";
-                format = "vfat";
-                mountpoint = "/boot";
-                mountOptions = ["fmask=0077" "dmask=0077"];
-              };
-            };
-
-            nix = {
-              size = "100%";
-              priority = 2;
-              content = {
-                # type = "filesystem";
-                # format = "btrfs";
-                # mountpoint = "/nix";
-                # mountOptions = ["compress-force=zstd" "nosuid" "nodev"];
-                type = "btrfs";
-                extraArgs = [ "-f" ];
-                subvolumes = {
-                  "@" = {};
-                  "@nix" = {
-                    mountpoint = "/nix";
-                    mountOptions = [ "compress-force=zstd" "nosuid" "nodev" "noatime" ];
-                  };
-                  "@persistent" = {
-                    mountpoint = "/nix/persistent";
-                    mountOptions = [ "compress-force=zstd" "nosuid" "nodev" "noatime" ];
-                  };
-                };
-              };
-            };
-          };
-        };
-      };
-
-      nodev."/" = {
-        fsType = "tmpfs";
-        mountOptions = ["relatime" "mode=755" "nosuid" "nodev"];
-      };
-    };
-  };
+  # disko = {
+  #   enableConfig = false;
+  #
+  #   devices = {
+  #     disk.main = {
+  #       type = "disk";
+  #       device = "/dev/vda";
+  #       imageSize = "2G";
+  #       content = {
+  #         type = "gpt";
+  #         partitions = {
+  #           bios = {
+  #             size = "1M";
+  #             type = "21686148-6449-6E6F-744E-656564454649"; # BIOS boot partition
+  #             priority = 0;
+  #           };
+  #
+  #           boot = {
+  #             size = "1G";
+  #             type = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B";
+  #             priority = 1;
+  #             content = {
+  #               type = "filesystem";
+  #               format = "vfat";
+  #               mountpoint = "/boot";
+  #               mountOptions = ["fmask=0077" "dmask=0077"];
+  #             };
+  #           };
+  #
+  #           nix = {
+  #             size = "100%";
+  #             priority = 2;
+  #             content = {
+  #               # type = "filesystem";
+  #               # format = "btrfs";
+  #               # mountpoint = "/nix";
+  #               # mountOptions = ["compress-force=zstd" "nosuid" "nodev"];
+  #               type = "btrfs";
+  #               extraArgs = [ "-f" ];
+  #               subvolumes = {
+  #                 "@" = {};
+  #                 "@nix" = {
+  #                   mountpoint = "/nix";
+  #                   mountOptions = [ "compress-force=zstd" "nosuid" "nodev" "noatime" ];
+  #                 };
+  #                 "@persistent" = {
+  #                   mountpoint = "/nix/persistent";
+  #                   mountOptions = [ "compress-force=zstd" "nosuid" "nodev" "noatime" ];
+  #                 };
+  #               };
+  #             };
+  #           };
+  #         };
+  #       };
+  #     };
+  #
+  #     nodev."/" = {
+  #       fsType = "tmpfs";
+  #       mountOptions = ["relatime" "mode=755" "nosuid" "nodev"];
+  #     };
+  #   };
+  # };
 
   fileSystems = {
     "/" = {
@@ -82,18 +82,18 @@
       options = ["relatime" "mode=755" "nosuid" "nodev"];
     };
     "/boot" = {
-      device = "/dev/sda2";
+      device = "/dev/sda1";
       fsType = "vfat";
       options = ["fmask=0077" "dmask=0077"];
     };
     "/nix" = {
-      device = "/dev/sda3";
+      device = "/dev/sda2";
       fsType = "btrfs";
       options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@nix"];
     };
     "/nix/persistent" = {
       neededForBoot = true;
-      device = "/dev/sda3";
+      device = "/dev/sda2";
       fsType = "btrfs";
       options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@persistent"];
     };
