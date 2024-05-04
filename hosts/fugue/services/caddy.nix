@@ -13,4 +13,12 @@
       }
     '';
   };
+  systemd.services.caddy = {
+    serviceConfig = {
+      # Required to use ports < 1024
+      AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+      CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
+      TimeoutStartSec = "5m";
+    };
+  };
 }
