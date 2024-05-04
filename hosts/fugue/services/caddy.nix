@@ -9,7 +9,7 @@
       auto_https disable_certs
       servers {
         trusted_proxies cloudflare
-        protocols h2 h3
+        protocols h1 h2 h3
       }
     '';
   };
