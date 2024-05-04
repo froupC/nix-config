@@ -124,7 +124,7 @@
           mode = "0500";
           user = "root";
         };
-        "ssl/certs/key.pem" = {
+        "ssl/certs/cloudflare.key" = {
           source = config.age.secrets."cf-key".path;
           mode = "0500";
           user = "root";
