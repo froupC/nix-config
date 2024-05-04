@@ -372,10 +372,10 @@
     "mysecrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1712490528,
-        "narHash": "sha256-ZXB1t17o0tqulS3oHmmJWeYmg1Yvte96qeFmZ/3vJnM=",
+        "lastModified": 1714812204,
+        "narHash": "sha256-fj7k/sI1kgTL9Ojs6QtFh9GPuZn9ifulsnNd6SZmeEc=",
         "ref": "refs/heads/main",
-        "rev": "fe51f19ffb8cee16cbdf9f3d09d80c2a19657c7e",
+        "rev": "6840ab2b8ab10ccd083227a655b5fda4899ac082",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/froupC/secrets-for-nix.git"
