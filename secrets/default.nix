@@ -106,5 +106,29 @@
         };
       };
     })
+
+    (mkIf cfg.server.application.enable {
+      age.secrets = {
+        "cf-cert" = {
+          file = "${mysecrets}/cf-cert.age";
+        } // high_security;
+        "cf-key" = {
+          file = "${mysecrets}/cf-key.age";
+        } // high_security;
+      };
+
+      environment.etc = {
+        "ssl/certs/cloudflare.pem" = {
+          source = config.age.secrets."cf-cert".path;
+          mode = "0500";
+          user = "root";
+        };
+        "ssl/certs/key.pem" = {
+          source = config.age.secrets."cf-key".path;
+          mode = "0500";
+          user = "root";
+        };
+      };
+    })
   ]);
 }
