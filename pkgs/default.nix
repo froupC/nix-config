@@ -7,4 +7,6 @@
       "github.com/WeidiDeng/caddy-cloudflare-ip"
     ];
   };
+
+  clash2sfa = pkgs.callPackage ./clash2sfa.nix;
 }

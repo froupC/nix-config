@@ -121,13 +121,15 @@
       environment.etc = {
         "ssl/certs/cloudflare.pem" = {
           source = config.age.secrets."cf-cert".path;
-          mode = "0500";
+          mode = "0440";
           user = "root";
+          group = "caddy";
         };
         "ssl/certs/cloudflare.key" = {
           source = config.age.secrets."cf-key".path;
-          mode = "0500";
+          mode = "0440";
           user = "root";
+          group = "caddy";
         };
       };
     })
