@@ -1,11 +1,13 @@
 { pkgs
 , lib
 , stdenv
+, fetchFromGitHub
+, installShellFiles
 , plugins
 }:
 let 
   version = "2.7.6";
-  dist = lib.fetchFromGitHub {
+  dist = fetchFromGitHub {
     owner = "caddyserver";
     repo = "dist";
     rev = "v${version}";
@@ -15,10 +17,10 @@ in
   stdenv.mkDerivation rec {
   pname = "caddy";
   # https://github.com/NixOS/nixpkgs/issues/113520
-  version = "v${version}";
+  inherit version;
   dontUnpack = true;
 
-  nativeBuildInputs = [ pkgs.git pkgs.go pkgs.xcaddy ];
+  nativeBuildInputs = [ pkgs.git pkgs.go pkgs.xcaddy installShellFiles ];
 
   configurePhase = ''
     export GOCACHE=$TMPDIR/go-cache
