@@ -1,5 +1,10 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
-pkgs: {
+{ pkgs, lib }: {
   # example = pkgs.callPackage ./example { };
+  customized_caddy = pkgs.callPackage ./caddy.nix {
+    plugins = [
+      "github.com/WeidiDeng/caddy-cloudflare-ip"
+    ];
+  };
 }

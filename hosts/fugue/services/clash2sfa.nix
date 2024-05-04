@@ -6,4 +6,11 @@
       "clash2sfa:/server/db"
     ];
   };
+
+  services.caddy.virtualHosts."sb.froup.cc" = {
+    extraConfig = ''
+      reverse_proxy http://127.0.0.1:5149
+      tls /etc/ssl/certs/cloudflare.pem /etc/ssl/certs/cloudflare.key
+    '';
+  };
 }

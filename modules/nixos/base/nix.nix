@@ -13,7 +13,7 @@ let
     allowUnfree = true;
     permittedInsecurePackages = [];
   };
-  overlays = import ../../../overlays { inherit nixpkgs-stable nixpkgs-unstable nixpkgsConfig; };
+  overlays = import ../../../overlays { inherit nixpkgs-stable nixpkgs-unstable nixpkgsConfig lib; };
 in 
 {
   nixpkgs = {

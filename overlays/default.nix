@@ -1,7 +1,7 @@
 # This file defines overlays
-{ nixpkgs-stable, nixpkgs-unstable, nixpkgsConfig, ... }: {
+{ nixpkgs-stable, nixpkgs-unstable, nixpkgsConfig, ... }@args: {
   # This one brings our custom packages from the 'pkgs' directory
-  additions = final: _prev: import ../pkgs { pkgs = final; };
+  additions = final: _prev: import ../pkgs { pkgs = final; lib = args.lib; };
 
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
