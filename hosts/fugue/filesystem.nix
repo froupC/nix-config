@@ -52,7 +52,6 @@
   #               type = "btrfs";
   #               extraArgs = [ "-f" ];
   #               subvolumes = {
-  #                 "@" = {};
   #                 "@nix" = {
   #                   mountpoint = "/nix";
   #                   mountOptions = [ "compress-force=zstd" "nosuid" "nodev" "noatime" ];
@@ -74,9 +73,6 @@
   #     };
   #   };
   # };
-
-  # fileSystems."/" = { device = "/dev/sda3"; fsType = "ext4"; };
-  # fileSystems."/boot" = { device = "/dev/sda2"; fsType = "ext4"; };
 
   fileSystems = {
     "/" = {
@@ -101,23 +97,23 @@
   #     options = ["relatime" "mode=755" "nosuid" "nodev"];
   #   };
   #   "/boot" = {
-  #     device = "/dev/sda1";
+  #     device = "/dev/sda2";
   #     fsType = "vfat";
   #     options = ["fmask=0077" "dmask=0077"];
   #   };
   #   "/nix" = {
-  #     device = "/dev/sda2";
+  #     device = "/dev/sda3";
   #     fsType = "btrfs";
   #     options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@nix"];
   #   };
   #   "/nix/persistent" = {
   #     neededForBoot = true;
-  #     device = "/dev/sda2";
+  #     device = "/dev/sda3";
   #     fsType = "btrfs";
   #     options = ["compress-force=zstd" "nosuid" "nodev" "subvol=@persistent"];
   #   };
   # };
-  #
+
   environment.persistence."/nix/persistent" = {
     hideMounts = true;
 
