@@ -14,6 +14,7 @@
   ];
 
   modules.secrets.server.application.enable = true;
+  modules.secrets.impermanence.enable = true;
 
   system.stateVersion = "23.11";
 }
