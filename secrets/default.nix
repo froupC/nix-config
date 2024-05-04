@@ -4,6 +4,7 @@
   pkgs,
   agenix,
   username,
+  mysecrets,
   ...
 }: let
   cfg = config.modules.secrets;
