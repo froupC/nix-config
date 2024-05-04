@@ -44,5 +44,6 @@ in
   nixosConfigurations = {
     sonata = mkNixosConfiguration vars.sonata;
     concerto = mkNixosConfiguration vars.concerto;
+    fugue = mkNixosConfiguration vars.fugue;
   };
 }
