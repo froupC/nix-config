@@ -134,6 +134,7 @@
       directories = [
         "src"
         "containers"
+        "services"
         # configs
         ".cache"
         ".config"

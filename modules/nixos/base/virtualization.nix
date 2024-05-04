@@ -6,6 +6,18 @@
   ###################################################################################
 
   virtualisation = {
+    containers.enable = true;
+
+    podman = {
+      enable = true;
+
+      dockerCompat = true;
+
+      defaultNetwork.settings = { dns_enabled = true; };
+    };
+
+    oci-containers.backend = "podman";
+
     docker = {
       enable = true;
       daemon.settings = {
@@ -18,7 +30,12 @@
       # This is required for containers which are created with the `--restart=always` flag to work.
       enableOnBoot = true;
     };
-
-    lxd.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    dive # look into docker image layers
+    podman-tui # status of containers in the terminal
+    docker-compose # start group of containers for dev
+    #podman-compose # start group of containers for dev
+  ];
 }
