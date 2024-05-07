@@ -8,5 +8,5 @@
     ];
   };
 
-  clash2sfa = pkgs.callPackage ./clash2sfa.nix;
+  clash2sfa = pkgs.callPackage ./clash2sfa.nix {};
 }
