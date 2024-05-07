@@ -11,6 +11,8 @@
 
   system.stateVersion = "23.11";
 
+  users.users."${username}".linger = true;
+
   wsl = {
     enable = true;
     wslConf.interop.appendWindowsPath = false;
