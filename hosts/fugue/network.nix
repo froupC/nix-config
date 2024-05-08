@@ -35,4 +35,11 @@
   ];
 
   networking.usePredictableInterfaceNames = false;
+
+  # for systemd-nspawn containers
+  networking.nat = {
+    enable = true;
+    internalInterfaces = ["ve-+"];
+    externalInterface = "eth0";
+  };
 }

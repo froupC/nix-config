@@ -116,6 +116,9 @@
         "cf-key" = {
           file = "${mysecrets}/cf-key.age";
         } // high_security;
+        "freshrss" = {
+          file = "${mysecrets}/freshrss.age";
+        } // high_security;
       };
 
       environment.etc = {
