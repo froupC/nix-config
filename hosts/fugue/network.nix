@@ -1,4 +1,4 @@
-{...}: {
+{ lib, ... }: {
   # avoid confliction with systemd-networkd
   networking.useDHCP = false;
 
@@ -35,6 +35,14 @@
   ];
 
   networking.usePredictableInterfaceNames = false;
+
+  networking.firewall = {
+    enable = lib.mkForce true;
+    allowedTCPPorts = [ 22 80 443 ];
+    allowedUDPPorts = [ 443 ];
+    allowPing = true;
+    trustedInterfaces = [ "ve-+" ];
+  };
 
   # for systemd-nspawn containers
   networking.nat = {

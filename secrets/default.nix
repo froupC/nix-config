@@ -116,8 +116,8 @@
         "cf-key" = {
           file = "${mysecrets}/cf-key.age";
         } // high_security;
-        "freshrss" = {
-          file = "${mysecrets}/freshrss.age";
+        "miniflux" = {
+          file = "${mysecrets}/miniflux.age";
         } // high_security;
       };
 
@@ -133,6 +133,12 @@
           mode = "0440";
           user = "root";
           group = "caddy";
+        };
+        "miniflux/admin-credentials" = {
+          source = config.age.secrets."miniflux".path;
+          mode = "0440";
+          user = "miniflux";
+          group = "miniflux";
         };
       };
     })
