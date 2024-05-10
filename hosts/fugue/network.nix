@@ -47,7 +47,7 @@
   # for systemd-nspawn containers
   networking.nat = {
     enable = true;
-    internalInterfaces = ["ve-+"];
+    internalInterfaces = ["ve+" "podman+"];
     externalInterface = "eth0";
   };
 }
