@@ -8,7 +8,8 @@
   systemd.network.networks.eth0 = {
     address = [ "207.180.226.30/24" ];
     # gateway = [ "207.180.226.1" ];
-    dns = [ "213.136.95.10" "213.136.95.11" ];
+    # dns = [ "213.136.95.10" "213.136.95.11" ];
+    dns = [ "1.1.1.1" ];
     matchConfig = {
       Name = "eth0";
     };
@@ -28,10 +29,10 @@
     };
   };
 
-  networking.nameservers = [ "213.136.95.10" "213.136.95.11" ];
+  # networking.nameservers = [ "213.136.95.10" "213.136.95.11" ];
 
   services.resolved.fallbackDns = [
-    "8.8.8.8#dns.google"
+    "8.8.8.8"
   ];
 
   networking.usePredictableInterfaceNames = false;
