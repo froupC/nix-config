@@ -8,8 +8,8 @@
   home.packages = with pkgs;
     [
       #-- python
-      nodePackages.pyright # python language server
-      (python311.withPackages (
+      pyright # python language server
+      (python3.withPackages (
         ps:
           with ps; [
             ruff-lsp
