@@ -39,11 +39,28 @@
       }
     ];
   };
+
+  mkMinimalNixosConfiguration = {
+    system ? "x64-linux",
+    hostname,
+    extraSpecialArgs ? {},
+    username ? constants.username,
+    minimalNixosModules,
+  }: let
+    specialArgs = allSystemSpecialArgs."${system}" // { inherit hostname; } // extraSpecialArgs;
+  in lib.nixosSystem {
+    inherit specialArgs;
+    system = constants.allSystemsAttrset."${system}";
+    modules = minimalNixosModules;
+  };
 in 
 {
   nixosConfigurations = {
     sonata = mkNixosConfiguration vars.sonata;
     concerto = mkNixosConfiguration vars.concerto;
     fugue = mkNixosConfiguration vars.fugue;
+    fugue-minimal = mkMinimalNixosConfiguration vars.fugue;
+    symphony = mkNixosConfiguration vars.symphony;
+    nixos-iso = mkMinimalNixosConfiguration vars.nixos-iso;
   };
 }

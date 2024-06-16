@@ -51,10 +51,6 @@
     printing.enable = true; # Enable CUPS to print documents.
     geoclue2.enable = true; # Enable geolocation services.
 
-    udev.packages = with pkgs; [
-      gnome.gnome-settings-daemon
-    ];
-
     # A key remapping daemon for linux.
     # https://github.com/rvaiya/keyd
     keyd = {

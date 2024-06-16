@@ -73,6 +73,10 @@
             file = "${mysecrets}/nix-access-tokens.age";
           }
           // high_security;
+        "sing-box-config-url" = 
+        {
+          file = "${mysecrets}/sing-box-config-url.age";
+        } // user_readable;
       };
     })
 
