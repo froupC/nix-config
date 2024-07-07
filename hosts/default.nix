@@ -23,6 +23,7 @@
     home-manager ? inputs.home-manager,
     nixosModules,
     homeModule,
+    ...
   }: let
     specialArgs = allSystemSpecialArgs."${system}" // { inherit hostname; } // extraSpecialArgs;
   in lib.nixosSystem {
@@ -46,6 +47,7 @@
     extraSpecialArgs ? {},
     username ? constants.username,
     minimalNixosModules,
+    ...
   }: let
     specialArgs = allSystemSpecialArgs."${system}" // { inherit hostname; } // extraSpecialArgs;
   in lib.nixosSystem {
