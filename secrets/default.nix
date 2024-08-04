@@ -123,6 +123,9 @@
         "miniflux" = {
           file = "${mysecrets}/miniflux.age";
         } // high_security;
+        "vaultwarden" = {
+          file = "${mysecrets}/vaultwarden.age";
+        };
       };
 
       environment.etc = {
@@ -143,6 +146,12 @@
           mode = "0440";
           user = "miniflux";
           group = "miniflux";
+        };
+        "vaultwarden/.env" = {
+          source = config.age.secrets."vaultwarden".path;
+          mode = "0440";
+          user = config.users.users.vaultwarden.name;
+          group = config.users.groups.vaultwarden.name;
         };
       };
     })
